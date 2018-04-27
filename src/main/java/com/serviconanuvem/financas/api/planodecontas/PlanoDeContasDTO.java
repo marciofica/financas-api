@@ -42,6 +42,8 @@ public class PlanoDeContasDTO {
                     .build();
             if(dto.getId() != null){
                 PlanoDeContas entityOld = planoDeContasRepository.findById(dto.getId()).get();
+                entity.setCriadoPor(entityOld.getCriadoPor());
+                entity.setDhCriacao(entityOld.getDhCriacao());
                 entity.setVersion(entityOld.getVersion());
             }
             return entity;

@@ -15,16 +15,8 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
+
 server:
   port: 8080
   servlet:
     context-path: /financas-1.0
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-      type:
-        descriptor:
-          sql:
-            BasicBinder: TRACE

@@ -11,3 +11,16 @@ CREATE TABLE usuarios (
     PRIMARY KEY (id),
 	  INDEX(email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--changeset marcio:2
+RENAME TABLE usuarios TO users;
+
+--changeset marcio:3
+CREATE TABLE authorities (
+  id BIGINT auto_increment,
+  usuario_id BIGINT,
+  username VARCHAR(80) NOT NULL,
+  authority VARCHAR(20) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_user_authorities FOREIGN KEY (usuario_id) REFERENCES users(id)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;

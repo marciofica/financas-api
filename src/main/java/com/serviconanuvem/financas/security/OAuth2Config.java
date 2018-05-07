@@ -7,21 +7,22 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
 @ComponentScan
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-
-    public static final String RESOURCE_ID = "financas-api-resource";
-    public static final String CLIENT_ID = "financas-api";
 
     @Autowired
     @Qualifier("userDetailsService")
@@ -31,14 +32,19 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private DataSource dataSource;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
-        configurer
-                .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)
-                .approvalStoreDisabled();
+    @Bean
+    public JdbcTokenStore tokenStore() {
+        return new JdbcTokenStore(dataSource);
+    }
+
+    @Bean
+    protected AuthorizationCodeServices authorizationCodeServices() {
+        return new JdbcAuthorizationCodeServices(dataSource);
     }
 
     @Override
@@ -47,14 +53,19 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient(CLIENT_ID)
-                .authorizedGrantTypes("client_credentials", "password")
-                .authorities("ROLE_CLIENT")
-                .scopes("read")
-                .resourceIds(RESOURCE_ID)
-                .secret("secret");
+    public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
+        configurer
+                .authorizationCodeServices(authorizationCodeServices())
+                .authenticationManager(authenticationManager)
+                .tokenStore(tokenStore())
+                .userDetailsService(userDetailsService)
+                .approvalStoreDisabled();
     }
 
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients
+                .jdbc(dataSource)
+                .passwordEncoder(passwordEncoder);
+    }
 }

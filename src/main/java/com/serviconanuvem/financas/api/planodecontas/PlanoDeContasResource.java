@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/plano-de-contas")
+@RequestMapping("/api/plano-de-contas")
 @Transactional
 public class PlanoDeContasResource extends AbstractResource<PlanoDeContas, PlanoDeContasDTO> {
 

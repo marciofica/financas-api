@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "usuarios", uniqueConstraints = {
+@Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username"}),
         @UniqueConstraint(columnNames = {"email"})
 })
@@ -50,7 +50,6 @@ public class Usuarios implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
         return authorities;
     }
 

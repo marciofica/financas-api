@@ -28,4 +28,10 @@ public class InsereUsuarios {
                 .build();
         return usuariosRepository.saveAndFlush(usuario);
     }
+
+    @RequestMapping(value = "/encripta" ,method = RequestMethod.GET, produces = "application/text; charset=utf-8")
+    @ResponseBody
+    public String show() {
+        return passwordEncoder.encode("marcio.123");
+    }
 }

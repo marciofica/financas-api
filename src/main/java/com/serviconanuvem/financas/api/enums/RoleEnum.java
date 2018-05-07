@@ -1,4 +1,4 @@
-package com.serviconanuvem.financas.api.usuarios;
+package com.serviconanuvem.financas.api.enums;
 
 public enum RoleEnum {
     ROLE_USER,

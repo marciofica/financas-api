@@ -9,5 +9,6 @@
     <include file="/db/changelog/sprint1/usuarios-001.sql" />
     <include file="/db/changelog/sprint1/oauth-001.sql" />
     <include file="/db/changelog/sprint1/planos-usuario-001.sql" />
+    <include file="/db/changelog/sprint1/eventos-financeiros-001.sql" />
 
 </databaseChangeLog>

@@ -101,6 +101,13 @@ public class UsuariosDTO {
                     .email(entity.getEmail())
                     .build();
         }
+
+        public UsuariosDTO toRelacionamento(Usuarios entity) {
+            return UsuariosDTO.builder()
+                    .id(entity.getId())
+                    .username(entity.getUsername())
+                    .build();
+        }
     }
 
 }

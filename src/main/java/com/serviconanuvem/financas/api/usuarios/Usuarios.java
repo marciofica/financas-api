@@ -2,6 +2,7 @@ package com.serviconanuvem.financas.api.usuarios;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,6 +47,10 @@ public class Usuarios implements UserDetails {
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
+
+    @Tolerate
+    public Usuarios() {
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

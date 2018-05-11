@@ -7,9 +7,9 @@ public class UsuariosSpecification {
     public static Specification<Usuarios> ativo(Integer ativo) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             if(ativo.intValue() == 2){
-                return criteriaBuilder.greaterThanOrEqualTo(root.get("ativo"),0);
+                return criteriaBuilder.greaterThanOrEqualTo(root.get("enabled"),0);
             }
-            return criteriaBuilder.equal(root.get("ativo"), ativo);
+            return criteriaBuilder.equal(root.get("enabled"), ativo);
         };
     }
 

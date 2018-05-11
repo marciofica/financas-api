@@ -8,5 +8,6 @@
     <include file="/db/changelog/sprint1/plano-de-contas-001.sql" />
     <include file="/db/changelog/sprint1/usuarios-001.sql" />
     <include file="/db/changelog/sprint1/oauth-001.sql" />
+    <include file="/db/changelog/sprint1/planos-usuario-001.sql" />
 
 </databaseChangeLog>

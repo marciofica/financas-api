@@ -12,5 +12,6 @@
     <include file="/db/changelog/sprint1/eventos-financeiros-001.sql" />
     <include file="/db/changelog/sprint1/tipos-pagamentos-001.sql" />
     <include file="/db/changelog/sprint1/contas-receber-001.sql" />
+    <include file="/db/changelog/sprint1/contas-pagar-001.sql" />
 
 </databaseChangeLog>

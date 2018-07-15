@@ -73,7 +73,7 @@ public abstract class AbstractResource<T, D> extends DefaultResources {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     @ResponseBody
     public D getById(@PathVariable("id") Long id) {
-        return representation.toDTO((T) repository.findById(id));
+        return representation.toDTO((T) repository.findById(id).get());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")

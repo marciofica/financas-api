@@ -1,6 +1,7 @@
 package com.serviconanuvem.financas.api.tipospagamentos;
 
 import com.serviconanuvem.financas.core.resource.AbstractResource;
+import com.serviconanuvem.financas.filters.FinancasResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,7 +30,7 @@ public class TiposPagamentosResource extends AbstractResource<TiposPagamentos, T
 
     @Override
     public Specification specifications() {
-        return Specification.where(TiposPagamentosSpecification.ativo(ativo))
+        return Specification.where(TiposPagamentosSpecification.withPlanoDeContas(FinancasResolver.getPlanoDeContas()))
                 .and(TiposPagamentosSpecification.byCriteria(criterio));
     }
 

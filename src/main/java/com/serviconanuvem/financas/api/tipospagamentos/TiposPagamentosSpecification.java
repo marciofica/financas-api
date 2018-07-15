@@ -2,6 +2,8 @@ package com.serviconanuvem.financas.api.tipospagamentos;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.Path;
+
 public class TiposPagamentosSpecification {
     public static Specification<TiposPagamentos> ativo(Integer ativo) {
         return (root, criteriaQuery, criteriaBuilder) -> {
@@ -18,6 +20,15 @@ public class TiposPagamentosSpecification {
                 return null;
             }
             return criteriaBuilder.like(root.get("descricao"), "%" + criterio + "%");
+        };
+    }
+
+    public static Specification<TiposPagamentos> withPlanoDeContas(Long planoId){
+        return (root, criteriaQuery, criteriaBuilder) -> {
+            if(planoId == null){
+                return null;
+            }
+            return criteriaBuilder.equal(root.join("planoDeContas").get("id"), planoId);
         };
     }
 }
